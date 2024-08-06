@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import useTodoStore from "./store/useTodoStore";
 import {
-  fetchTodos,
-  deleteTodo,
-  addTodo,
-  updateTodo,
-  toggleCompleted,
-} from "./app/Todo/TodoSlice";
-import { Box, Button, Modal, TextField } from "@mui/material";
+  Box,
+  Button,
+  FormControl,
+  MenuItem,
+  Modal,
+  Select,
+  TextField,
+} from "@mui/material";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 500,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -22,14 +23,22 @@ const style = {
 };
 
 const Todos = () => {
-  const { loading, Todos, error } = useSelector((state) => state.Todo);
+  const {
+    loading,
+    todos,
+    error,
+    fetchTodos,
+    addTodo,
+    deleteTodo,
+    updateTodo,
+    toggleCompleted,
+  } = useTodoStore();
   const [title, setTitle] = useState("");
   const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
-
   const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editTodoId, setEditTodoId] = useState(null);
+  const [filter, setFilter] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -40,63 +49,79 @@ const Todos = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchTodos());
-  }, [dispatch]);
+    fetchTodos();
+  }, [fetchTodos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isEditing) {
-      dispatch(updateTodo({ id: editTodoId, title }));
+      updateTodo({ id: editTodoId, title });
     } else {
-      dispatch(
-        addTodo({
-          title,
-          completed: false,
-        })
-      );
+      addTodo({
+        title,
+        completed: false,
+      });
     }
     handleClose();
   };
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
-      dispatch(deleteTodo(id));
+      deleteTodo(id);
     }
   };
 
-  const handleEdit = (Todo) => {
-    setTitle(Todo.title);
-    setEditTodoId(Todo.id);
+  const handleEdit = (todo) => {
+    setTitle(todo.title);
+    setEditTodoId(todo.id);
     setIsEditing(true);
     handleOpen();
   };
 
   const handleToggleCompleted = (id) => {
-    dispatch(toggleCompleted(id));
+    toggleCompleted(id);
   };
 
-  const filteredTodos = Todos.filter((Todo) =>
-    Todo.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  const searchTodo = todos
+    .filter((todo) => todo.title.toLowerCase().includes(search.toLowerCase()))
+    .filter((todo) => {
+      if (filter === "") return true;
+      return filter === "completed" ? todo.completed : !todo.completed;
+    });
 
   return (
     <div style={{ display: "flex" }}>
-      <div
-        style={{
-          paddingTop: "100px",
-          paddingLeft: "50px",
-        }}>
+      <div style={{ paddingTop: "100px", paddingLeft: "50px" }}>
         <div>
-          <TextField
-            variant="outlined"
-            label="Search..."
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <Button onClick={handleOpen} variant="contained">
-            Add
-          </Button>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <div className="search">
+              <TextField
+                variant="outlined"
+                label="Search..."
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <Button onClick={handleOpen} variant="contained">
+                Add
+              </Button>
+              <Select
+                value={filter}
+                onChange={handleFilterChange}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}>
+                <MenuItem value="">
+                  <em>All</em>
+                </MenuItem>
+                <MenuItem value="not-completed">❌ Not Completed</MenuItem>
+                <MenuItem value="completed">✅ Completed</MenuItem>
+              </Select>
+            </div>
+          </FormControl>
           <Modal
             open={open}
             onClose={handleClose}
@@ -112,21 +137,21 @@ const Todos = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <Button type="submit" className="Add">
+                <Button type="submit" variant="contained" className="addTodo">
                   {isEditing ? "Update" : "Add"}
                 </Button>
               </form>
             </Box>
           </Modal>
         </div>
-        {loading && <h2>Loading...</h2>}
+        {loading && <div className="loader"></div>}
         {error && <h2>{error}</h2>}
-        {filteredTodos.length > 0 && (
+        {searchTodo.length > 0 && (
           <ol>
-            {filteredTodos.map((Todo) => (
-              <li key={Todo.id} className="tr">
-                <p className={Todo.completed ? "" : "toggleComp"}>
-                  {Todo.title}
+            {searchTodo.map((todo) => (
+              <li key={todo.id} className="tr">
+                <p className={todo.completed ? "" : "toggleComp"}>
+                  {todo.title}
                 </p>
                 <button
                   className="completed_button"
@@ -135,15 +160,15 @@ const Todos = () => {
                     backgroundColor: "inherit",
                     marginLeft: "20px",
                   }}
-                  onClick={() => handleToggleCompleted(Todo.id)}>
-                  {Todo.completed ? "✅" : "❌"}
+                  onClick={() => handleToggleCompleted(todo.id)}>
+                  {todo.completed ? "✅" : "❌"}
                 </button>
                 <button
                   className="Delete"
-                  onClick={() => handleDelete(Todo.id)}>
+                  onClick={() => handleDelete(todo.id)}>
                   Delete
                 </button>
-                <button className="Update" onClick={() => handleEdit(Todo)}>
+                <button className="Update" onClick={() => handleEdit(todo)}>
                   Edit
                 </button>
               </li>

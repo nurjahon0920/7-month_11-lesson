@@ -2,9 +2,11 @@ import Todo from "./Todo";
 
 const App = () => {
   return (
-    <div className="container">
-      <Todo />
-    </div>
+    <>
+      <div className="container">
+        <Todo />
+      </div>
+    </>
   );
 };
 
