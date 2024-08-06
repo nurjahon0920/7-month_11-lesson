@@ -1,0 +1,197 @@
+.dark_mode {
+  background-color: #111;
+}
+
+.todo_top {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  gap: 20px;
+  justify-content: space-between;
+}
+ol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 10px;
+  list-style-type: none;
+}
+.tr {
+  display: flex;
+  gap: 10px;
+}
+.tr p {
+  max-width: 400px;
+  width: 100%;
+}
+.actions {
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+  /* gap: 10px; */
+}
+.addTodo {
+  background-color: #4caf50 !important;
+  color: #fff;
+  border: none;
+  padding: 5px 20px !important;
+}
+.img {
+  animation: l2 2s infinite linear;
+}
+/* HTML: <div class="loader"></div> */
+.loader {
+  --w: 10ch;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  line-height: 1.4em;
+  letter-spacing: var(--w);
+  width: var(--w);
+  overflow: hidden;
+  white-space: nowrap;
+  color: #0000;
+  text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 yellow,
+    calc(-2 * var(--w)) 0 aqua, calc(-3 * var(--w)) 0 greenyellow,
+    calc(-4 * var(--w)) 0 red, calc(-5 * var(--w)) 0 yellow,
+    calc(-6 * var(--w)) 0 aqua, calc(-7 * var(--w)) 0 greenyellow,
+    calc(-8 * var(--w)) 0 yellow, calc(-9 * var(--w)) 0 red;
+  animation: l20 2s infinite linear;
+}
+.loader:before {
+  content: "Loading...";
+}
+
+@keyframes l20 {
+  9.09% {
+    text-shadow: calc(0 * var(--w)) -10px red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 grey, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) 0 blue, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) 0 orange;
+  }
+  18.18% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) -10px red,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 blue, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) 0 grey, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) 0 orange;
+  }
+  27.27% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) -10px red, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 grey, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) 0 blue, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) 0 orange;
+  }
+  36.36% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) -10px red,
+      calc(-4 * var(--w)) 0 grey, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) 0 blue, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) 0 orange;
+  }
+  45.45% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) -10px red, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) 0 blue, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) 0 orange;
+  }
+  54.54% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 grey, calc(-5 * var(--w)) -10px red,
+      calc(-6 * var(--w)) 0 blue, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) 0 orange;
+  }
+  63.63% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 grey, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) -10px red, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) 0 orange;
+  }
+  72.72% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 grey, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) 0 blue, calc(-7 * var(--w)) -10px red,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) 0 orange;
+  }
+  81.81% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 grey, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) 0 blue, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) -10px red, calc(-9 * var(--w)) 0 orange;
+  }
+  90.90% {
+    text-shadow: calc(0 * var(--w)) 0 red, calc(-1 * var(--w)) 0 lightblue,
+      calc(-2 * var(--w)) 0 #e945e9, calc(-3 * var(--w)) 0 #63fff4,
+      calc(-4 * var(--w)) 0 grey, calc(-5 * var(--w)) 0 blueviolet,
+      calc(-6 * var(--w)) 0 blue, calc(-7 * var(--w)) 0 yellow,
+      calc(-8 * var(--w)) 0 green, calc(-9 * var(--w)) -10px red;
+  }
+}
+.Delete:hover {
+  z-index: 01;
+  background-image: linear-gradient(
+    to right,
+    rgb(238, 65, 238) 10%,
+    rgb(250, 176, 5) 25%,
+    rgb(250, 176, 5) 34%,
+    rgb(253, 126, 20) 40%,
+    rgb(253, 126, 20) 55%,
+    rgb(250, 82, 82) 87%,
+    rgb(250, 82, 82) 100%
+  );
+  animation: var(--timing) linear dance6123 infinite;
+  transform: scale(1.05) translateY(-1px);
+}
+@keyframes dance6123 {
+  to {
+    background-position: var(--width);
+  }
+}
+button {
+  --width: 100px;
+  --timing: 2s;
+  border: 0;
+  width: var(--width);
+  padding-block: 10px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  transition: all 0.2s;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.Delete {
+  margin-left: 10px;
+  background: rgba(255, 5, 5, 0.911);
+}
+.Update {
+  margin-left: 10px;
+  background: rgb(64, 192, 87);
+}
+.Update:hover {
+  background-image: linear-gradient(
+    to right,
+    rgb(76, 110, 245) 9%,
+    rgb(63, 164, 247) 22%,
+    rgb(3, 226, 255) 35%,
+    rgb(103, 255, 209) 48%,
+    rgb(84, 255, 175) 61%,
+    rgb(87, 255, 151) 74%,
+    rgb(90, 255, 84) 87%,
+    rgba(85, 236, 113, 0.897) 100%
+  );
+  animation: var(--timing) linear dance6123 infinite;
+  transform: scale(1.05) translateY(-1px);
+}
+@keyframes dance6123 {
+  to {
+    background-position: var(--width);
+  }
+}
